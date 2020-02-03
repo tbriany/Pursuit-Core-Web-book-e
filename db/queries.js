@@ -1,5 +1,5 @@
 
-const db = require('./connection')
+const db = require('./db')
 
 let getOneBookmark = (bookmarkID) => {
     return db.one('SELECT * FROM bookmarks WHERE id = $1', bookmarkID).catch(err => {
@@ -27,9 +27,9 @@ let createBookmark = (newBookmark) => {
 
 let updateBookmark = (update) => {
     return db.oneOrNone('UPDATE bookmarks SET url = ${url}, title = ${title} WHERE id = ${id}', { ...update })
-    .catch(err => {
-        console.error(err)
-    })
+        .catch(err => {
+            console.error(err)
+        })
 }
 
 let deleteBookmark = (id) => {
@@ -50,16 +50,16 @@ let getAllUsers = (id) => {
 
 let createUser = (user) => {
     return db.none('INSERT INTO users(email, username) VALUES (${email}, ${username})', { ...user })
-    .catch(err =>{
-        console.error(err)
-    })
+        .catch(err => {
+            console.error(err)
+        })
 }
 
 let updateUser = (user) => {
     return db.none('UPDATE users SET email = ${email}, username = ${username} WHERE id = ${id}', { ...user })
-    .catch(err => {
-        console.error(err)
-    })
+        .catch(err => {
+            console.error(err)
+        })
 }
 
 let deleteUser = (id) => {

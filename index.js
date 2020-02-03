@@ -21,7 +21,9 @@ app.use(cors());
 
 // redirect any requests to the homepage to bookmarks
 app.get("/", (req, res) => {
-  res.redirect("/api/bookmarks");
+  res.json({
+    msg: "Welcome to the book-e API. The endpoints available are /api/users and /api/bookmarks"
+  })
 });
 
 // hands off requests on the '/api/bookmarks' route to the bookmarks controller

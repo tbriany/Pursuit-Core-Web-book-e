@@ -1,4 +1,4 @@
-const db = require("./connection");
+const db = require("./db");
 const { QueryFile } = require('pg-promise')
 
 // db.none('CREATE DATABASE ')
@@ -41,22 +41,22 @@ let bookmarks = [
 ]
 
 let queries = users.map((user, index) => {
-    return db.one("INSERT INTO users(email, username) VALUES (${email}, ${username}) RETURNING id", 
-    { 
-        table: tables.users,
-        email: user.email,
-        username: user.username 
-    })
-    .then(result => {
-        return db.none("INSERT INTO bookmarks(user_id, url, title) VALUES(${user_id}, ${url}, ${title})", {
-            user_id : result.id,
-            url: bookmarks[index].url,
-            title: bookmarks[index].title
+    return db.one("INSERT INTO users(email, username) VALUES (${email}, ${username}) RETURNING id",
+        {
+            table: tables.users,
+            email: user.email,
+            username: user.username
         })
-    })
-    .catch(err => {
-        console.error(err)
-    })
+        .then(result => {
+            return db.none("INSERT INTO bookmarks(user_id, url, title) VALUES(${user_id}, ${url}, ${title})", {
+                user_id: result.id,
+                url: bookmarks[index].url,
+                title: bookmarks[index].title
+            })
+        })
+        .catch(err => {
+            console.error(err)
+        })
 })
 
 Promise.all(queries).then(() => {
