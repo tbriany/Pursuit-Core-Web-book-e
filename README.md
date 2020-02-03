@@ -4,7 +4,7 @@ Solution code for the book-e json api.
 
 ## Setup Instructions
 
-1. Clone down this repository and `cd`
+1. Clone down this repository and `cd` to the cloned directory.
 1. Run `npm install`.
 1. Run `psql < db/seed.sql` to create the db and tables.
 1. Run `node db/seed.js` to populate the tables.
